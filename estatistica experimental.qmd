@@ -1,0 +1,240 @@
+---
+title: "Estatística Experimental"
+format: html
+---
+
+Tomar decisões importantes não é uma tarefa fácil. As decisões influenciam o futuro de uma empresa e, mais importante, influenciam vidas. Diante dos desafios que surgem, é importante que, além de prever os resultados, possa-se testar se a decisão vai realmente alcançar o objetivo desejado.
+
+Nesta situação, percebe-se o reconhecimento e a importância dos experimentos. A estatística experimental é uma área que exige mais da análise de dados, pois envolve um conjunto de elementos técnicos e práticos. É preciso colocar a mão na massa. Não se trata de ter um conjunto de dados pronto, mas de definir o problema, a métrica de análise, as hipóteses, a população, o tamanho da amostra, realizar os cálculos e analisar os resultados.
+
+O teste A/B é um exemplo de um experimento que busca avaliar o efeito de uma mudança ou tratamento, seguindo as etapas do processo experimental. Um fato interessante é que a base da estatística experimental vem da aplicação na agricultura, como o teste de seleção para um tratamento contra pragas (você pode encontrar na internet muitos exemplos agrícolas). Entretanto, devido ao seu aspecto de aplicação multidisciplinar, os métodos estatísticos podem ser utilizados em outras áreas.
+
+As análises partem do pressuposto de que os elementos seguem uma distribuição normal, o que facilita o cálculo da amostra. Outros conceitos devem ser destacados, pois fazem parte da base de construção de experimentos, são eles: 
+
+•	Repetição: a amostra deve ser suficiente e impedir que fatores não pesquisados tenham efeitos minimizados. 
+
+•	Aleatoriedade: a seleção dos elementos que irão participar da pesquisa deve ser realizada de forma aleatória. Se houver algum tipo de predisposição que influencie o resultado, ela deve ser reduzida para obter respostas mais precisas.
+
+A partir da realização do experimento, precisamos realizar testes para obter o resultado da análise. Existem alguns conceitos que pertinentes, mas não vamos aprofundar, como intervalo de confiança, erro, poder do teste, entre outros.  Os testes mais utilizados são:
+
+•	Teste F que serve para comparar as variâncias de duas ou mais populações normalmente distribuídas. Ele é baseado na razão entre as somas dos quadrados das variâncias entre e dentro dos grupos.
+
+•	Teste t, método estatístico que serve para comparar as médias de duas amostras ou de uma amostra com um valor hipotético.
+
+Outros testes que podem ser considerados: 
+
+•	Teste de Tukey utilizado para identificar quais pares de médias são significativamente diferentes entre si, considerando um nível de significância α. Este teste é útil para avaliar o efeito de diferentes tratamentos ou fatores em uma variável dependente. 
+
+•	Teste de Duncan permite identificar quais pares de médias são significativamente diferentes entre si, considerando um nível de significância α. Ele é baseado na diferença mínima significativa (DMS) entre as médias, que depende do número de grupos, do grau de liberdade do erro e da variância residual.
+
+# Deliniamentos ou Design das pesquisas
+
+Delineamentos amostrais se referem aos plano para coleta de amostrar para uma pesquisa, vamos apresentar alguns neste texto sem aprofundar nos cálculos, mas utilizando alguns exemplos para demonstrar cada tipo de estudo.
+
+## Deliniamento em inteiramente casualizado
+
+Neste tipo de planejamento, não leva em consideração nenhum fator de controle e as unidades experimentais são escolhidas de forma aleatória. É o modelo mais simples e mais usado quando a população é homogênea. Perde no poder analítico por não controlar fontes de variações.
+
+**Exemplo**:
+
+**Avaliação da Eficácia de uma Nova Metodologia de Ensino em Duas Turmas de Alunos do Ensino Médio**
+
+**Objetivo**: Comparar a eficácia de uma nova metodologia de ensino em relação ao método tradicional em turmas de alunos do Ensino Médio.
+
+**Atribuição dos Grupos**: As turmas serão designadas aleatoriamente para os dois grupos:
+
+- Grupo Experimental (Turma A): Receberá a nova metodologia de ensino.
+
+- Grupo de Controle (Turma B): Manterá o método tradicional de ensino.
+
+**Implementação da Metodologia**:
+
+- Turma A (Grupo Experimental): Os professores aplicarão a nova metodologia de ensino, que enfatiza abordagens mais práticas, tecnológicas e interativas.
+
+- Turma B (Grupo de Controle): Continuará com o método de ensino tradicional, com aulas expositivas e materiais didáticos convencionais.
+
+
+**Análise dos Resultados**:
+
+Os dados coletados serão analisados estatisticamente para comparar o desempenho acadêmico entre as duas turmas.
+Serão utilizados testes estatísticos como ANOVA ou t-test para avaliar possíveis diferenças significativas entre os grupos.
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+```
+
+```{r}
+set.seed(1612)
+notas_sala_A <- rnorm(50, mean = 80, sd = 20)
+notas_sala_A = ifelse(notas_sala_A > 100, 100, notas_sala_A)
+
+notas_sala_B <- rnorm(50, mean = 85, sd = 15)
+notas_sala_B = ifelse(notas_sala_B > 100, 100, notas_sala_B)
+
+# Creating density plot
+data <- data.frame(Notas = c(notas_sala_A, notas_sala_B),
+                   Sala = rep(c('Sala A', 'Sala B'), each = 50))
+
+ggplot2::ggplot(data, aes(x = Notas, fill = Sala)) +
+  ggplot2::geom_density(alpha = 0.5) +
+  ggplot2::labs(title = 'Distribuição de Notas - Salas A e B',
+       x = 'Notas',
+       y = 'Densidade') +
+  ggplot2::scale_fill_manual(values = c('gold', 'blue')) +
+  ggplot2::theme_minimal()
+```
+
+```{r}
+# Performing ANOVA
+model1 = aov(Notas ~ Sala, data = data)
+anova(model1)
+```
+
+```{r}
+# Performing t-test
+t_test <- t.test(notas_sala_A, notas_sala_B)
+t_test
+
+# Checking the t-test result
+if (t_test$p.value < 0.05) {
+  print("Diferença significativa entre as notas das salas A e B.")
+} else {
+  print("Não há diferença significativa entre as notas das salas A e B.")
+}
+```
+
+Após análise, verifica-se a distribuição da notas e as médias  são distintas
+
+```{r}
+ggplot2::ggplot(data, aes(x = Sala, y = Notas, fill = Sala)) +
+  ggplot2::geom_boxplot() +
+  ggplot2::labs(title = 'Boxplot das Notas - Salas A e B', x = 'Sala', y = 'Notas') +
+  ggplot2::scale_fill_manual(values = c('gold', 'blue')) +
+  ggplot2::theme_minimal()
+```
+
+```{r}
+ks.test(notas_sala_A, notas_sala_B)
+```
+
+Como resultado, percebe-se que a nova metodologia possui melhores resultados.
+
+## Deliniamento em blocos casualizados
+
+No delineamento em blocos casualizados, os grupos são divididos levando em conta a heterogeneidade das unidades experimentais. Esse método visa controlar as diversas fontes de efeitos que podem influenciar o estudo.
+
+**Exemplo**:
+
+**Experimento para testar três tipos de crédito pessoal em diferentes regiões do país**
+
+**Objetivo**: Verificar se há diferença significativa entre os tipos de crédito em relação ao índice de inadimplência, e se há interação entre o tipo de crédito e o nível de renda dos consumidores.
+
+**Formação dos Blocos**: Selecionar 12 cidades, divididas em quatro blocos de acordo com o nível de renda média dos habitantes (baixo, médio, alto e muito alto)
+
+**Aplicação e Registro das Concessões de Crédito**: 
+Dentro de cada bloco, sortear aleatoriamente quatro cidades e aplicar um tipo de crédito em cada uma delas. Medir o índice de inadimplência dos clientes que aderiram ao crédito em cada cidade após um período de tempo.
+
+```{r}
+trat <- c("A", "A", "A", "A", "B", "B", "B", "B", "C", "C", "C", "C") # tipos de crédito
+bloco <- c("baixo", "médio", "alto", "muito alto", "baixo", "médio",
+ "alto", "muito alto", "baixo", "médio", "alto", "muito alto") # níveis de renda
+resp <- c(0.15, 0.12, 0.10, 0.08, 0.18, 0.14, 0.11, 0.09, 0.13, 0.10, 0.09, 0.07)
+
+dados <- data.frame(trat, bloco, resp)
+
+# Define the desired order of levels for 'bloco'
+levels_order <- c("baixo", "médio", "alto", "muito alto")
+
+# Convert 'bloco' to a factor with specified levels order
+dados$bloco <- factor(dados$bloco, levels = levels_order)
+
+ggplot2::ggplot(dados, aes(x = bloco, y = resp)) +
+  ggplot2::geom_boxplot() +
+  ggplot2::labs(title = 'Boxplot da Inadiplência por Renda', x = 'Renda', y = 'resp') +
+  ggplot2::theme_minimal()
+
+ggplot2::ggplot(dados, aes(x = trat, y = resp)) +
+  ggplot2::geom_boxplot() +
+  ggplot2::labs(title = 'Boxplot da Inadiplência por Tipo de Crédito',
+                x = 'Tipo de Crédito', y = 'resp') +
+  ggplot2::theme_minimal()
+```
+
+```{r}
+anova=aov(resp~trat+bloco)
+summary(anova)
+```
+
+Diante do resultado e das hipóteses, concluímos que existe uma diferença significativa entre tipo de crédito e o nível de renda para o índice de inadimplência. Dessa forma, é necessário realizar outro teste para identificar os fatores que possuem influência me nível diferente. 
+
+```{r}
+# install.packages("agricolae", dependencies = T)
+agricolae::HSD.test(anova,as.factor("trat"),console=TRUE)
+```
+
+Em Relação ao tipo de crédito, há informação interpretada é que o tipo de crédito B é relacionada com um maior índice de inadimplência, por outro lado, o tipo C, possui menores índices de inadimplência.
+
+
+```{r}
+agricolae::HSD.test(anova,as.factor("bloco"),console=TRUE)
+```
+
+Considerando o nível de renda, a classe do tipo baixa possui maiores de inadimplência e nível muito alto, os menores índices. Nesse caso, indica que o nível social é um fator de influência .
+
+
+## Deliniamento fatorial 
+
+O delineamento fatorial permite usar o estudo de mais de um fator. Os fatores são as variáveis independentes que podem ser manipuladas ou controladas pelo pesquisador, e cada fator pode ter dois ou mais níveis, que são as diferentes condições ou categorias do fator. A variável resposta é a variável dependente medida em função dos fatores.
+
+O benefício deste delineamento é consiste em permitir a avalição dos efeitos isolados e combinados dos fatores. Outro ponto, é que o delineamento fatorial pode revelar interações entre as variáveis, sendo importante para a compreensão do fenômeno estudado. 
+
+**Exemplo**
+
+**Experimento fatorial 2x2 para avaliar o efeito do tipo de app (A) e do nível de segurança (B) sobre a satisfação dos clientes de um banco.**
+
+**Objetivo**: Verificar se há diferença significativa entre os tipos de app (A1 = tradicional, A2 = moderno) e entre os níveis de segurança (B1 = baixo, B2 = alto) sobre a satisfação dos clientes, medida por uma escala de 1 a 10, e se há interação entre os fatores.
+
+**Formação dos blocos**: Selecionar 40 clientes do banco, divididos em quatro blocos de acordo com o perfil de uso do app (frequente, ocasional, raro ou nunca). Dentro de cada bloco, sortear aleatoriamente 10 clientes e aplicar um tratamento a cada um deles.
+
+**Aplicação**: Os tratamentos são as combinações dos níveis dos fatores, ou seja, A1B1, A1B2, A2B1 e A2B2. Cada cliente recebe um app com um tipo e um nível de segurança e é solicitado a usar o app por uma semana e depois avaliar a sua satisfação com o app em uma escala de 1 a 10.
+
+
+```{r}
+app <- c("A1", "A1", "A1", "A1", "A1", "A1", "A1", "A1", "A1", "A1", "A2", "A2", "A2", "A2", "A2", "A2", "A2", "A2", "A2", "A2", "A1", "A1", "A1", "A1", "A1", "A1", "A1", "A1", "A1", "A1", "A2", "A2", "A2", "A2", "A2", "A2", "A2", "A2", "A2", "A2") # tipos de app
+seg <- c("B1", "B1", "B1", "B1", "B1", "B1", "B1", "B1", "B1", "B1", "B1", "B1", "B1", "B1", "B1", "B1", "B1", "B1", "B1", "B1", "B2", "B2", "B2", "B2", "B2", "B2", "B2", "B2", "B2", "B2", "B2", "B2", "B2", "B2", "B2", "B2", "B2", "B2", "B2", "B2") # níveis de segurança
+bloco <- c("frequente", "frequente", "frequente", "frequente", "frequente", "ocasional", "ocasional", "ocasional", "ocasional", "ocasional", "frequente", "frequente", "frequente", "frequente", "frequente", "ocasional", "ocasional", "ocasional", "ocasional", "ocasional", "frequente", "frequente", "frequente", "frequente", "frequente", "ocasional", "ocasional", "ocasional", "ocasional", "ocasional", "frequente", "frequente", "frequente", "frequente", "frequente", "ocasional", "ocasional", "ocasional", "ocasional", "ocasional") # perfis de uso do app
+resp <- c(6, 7, 5, 6, 7, 4, 5, 6, 5, 4, 8, 9, 7, 8, 9, 7, 8, 9, 8, 7, 5, 6, 4, 5, 6, 3, 4, 5, 4, 3, 7, 8, 6, 7, 8, 6, 7, 8, 7, 6) # satisfação dos clientes
+
+dados <- data.frame(app, seg, bloco, resp)
+```
+
+```{r}
+ggplot2::ggplot(dados, aes(x = app, y = resp)) +
+  ggplot2::geom_boxplot() +
+  ggplot2::labs(title = 'Boxplot da avaliação por tipo de app', x = 'app', y = 'resp') +
+  ggplot2::theme_minimal()
+```
+
+
+```{r}
+ggplot2::ggplot(dados, aes(x = seg, y = resp)) +
+  ggplot2::geom_boxplot() +
+  ggplot2::labs(title = 'Boxplot da avaliação por nível de segurança', x = 'seg', y = 'resp') +
+  ggplot2::theme_minimal()
+```
+
+```{r}
+ggplot2::ggplot(dados, aes(x = bloco, y = resp)) +
+  ggplot2::geom_boxplot() +
+  ggplot2::labs(title = 'Boxplot da avaliação por uso do app', x = 'bloco', y = 'resp') +
+  ggplot2::theme_minimal()
+```
+
+```{r}
+model3 = aov(resp ~ app*seg*bloco)
+summary(model3)
+```
+
+O que se percebe na análise que nenhuma interação é significante para o índice de sastifação, entrentanto, isoladamente, as variaveis em análise influenciam na classificação. 
