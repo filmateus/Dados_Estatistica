@@ -29,11 +29,13 @@ Outros testes que podem ser considerados:
 
 # Deliniamentos ou Design das pesquisas
 
-Delineamentos amostrais se referem aos plano para coleta de amostrar para uma pesquisa, vamos apresentar alguns neste texto sem aprofundar nos cálculos, mas utilizando alguns exemplos para demonstrar cada tipo de estudo.
+Delineamentos amostrais se referem aos plano para coleta da amostra para uma pesquisa e possuem regras e procedimentos pré-definidos que guiam o processo da pesquisa. Serão apresentaeow alguns neste texto sem aprofundar nos cálculos, mas utilizando alguns exemplos para demonstrar cada tipo de estudo.
 
 ## Deliniamento em inteiramente casualizado
 
 Neste tipo de planejamento, não leva em consideração nenhum fator de controle e as unidades experimentais são escolhidas de forma aleatória. É o modelo mais simples e mais usado quando a população é homogênea. Perde no poder analítico por não controlar fontes de variações.
+
+O modelo estatístico deste deliniamento é $y_{ij} = m + t_{i} + e_{ij}$, no qual $y_{ij}$ é o valor observado da característica estudada no tratamento, $m$ é a média geral, $t_{i}$  é o efeito do tratamento, $e_{ij}$ é o erro. Utilizad-se ANOVA para análise e o principal objetivo é comparar dois tratamentos.
 
 **Exemplo**:
 
@@ -125,6 +127,16 @@ Como resultado, percebe-se que a nova metodologia possui melhores resultados.
 
 No delineamento em blocos casualizados, os grupos são divididos levando em conta a heterogeneidade das unidades experimentais. Esse método visa controlar as diversas fontes de efeitos que podem influenciar o estudo.
 
+O modelo estatístico é $y_{ij} = m + t_{i} + b_{j} + e_{ij}$ onde:
+
+- $y_{ij}$ é o valor observado
+- $m$  é a média geral
+- $t_{i}$ é parâmetro que representa o efeito do tratamento
+- $b_{j}$ consiste no parâmetro do bloco.
+- $e_{ij}$ é o erro.
+
+Na realização dos teste considera testa-se o efeitos do tratamento e quanto dos blocos, analisando se diferem entre si.
+
 **Exemplo**:
 
 **Experimento para testar três tipos de crédito pessoal em diferentes regiões do país**
@@ -186,9 +198,19 @@ Considerando o nível de renda, a classe do tipo baixa possui maiores de inadimp
 
 ## Deliniamento fatorial 
 
-O delineamento fatorial permite usar o estudo de mais de um fator. Os fatores são as variáveis independentes que podem ser manipuladas ou controladas pelo pesquisador, e cada fator pode ter dois ou mais níveis, que são as diferentes condições ou categorias do fator. A variável resposta é a variável dependente medida em função dos fatores.
+O experimento fatorial permite usar o estudo de mais de um fator. Os fatores são as variáveis independentes que podem ser manipuladas ou controladas pelo pesquisador, e cada fator pode ter dois ou mais níveis, que são as diferentes condições ou categorias do fator. A variável resposta é a variável dependente medida em função dos fatores.
 
-O benefício deste delineamento é consiste em permitir a avalição dos efeitos isolados e combinados dos fatores. Outro ponto, é que o delineamento fatorial pode revelar interações entre as variáveis, sendo importante para a compreensão do fenômeno estudado. 
+Modelos estatísticos *DIC* em esquema fatorial com dois fatores A e B:
+
+- $y_{ij} = m + A_{i} + B_{j} + (AB_{ij}) + e_{ij}$
+
+Modelos estatísticos *DBC* em esquema fatorial com dois fatores A e B:
+
+- $y_{ij} = m + b_{j} +  A_{i} + B_{j} + (AB_{ij}) + e_{ij}$
+
+O benefício deste experimento é consiste em permitir a avalição dos efeitos isolados e combinados dos fatores. Outro ponto, é que o delineamento fatorial pode revelar interações entre as variáveis, sendo importante para a compreensão do fenômeno estudado. 
+
+
 
 **Exemplo**
 
