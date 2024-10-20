@@ -1,4 +1,5 @@
-# Data_analyses-
+# Análise de dados
+
 Aqui estão outro trabalhos onde pratico conhecimentos adquiridos com os estudos em Estatística e Machine Learning
 
 - Pasta Enem: utilizo alguns algoritmos de regressão para prever as notas do alunos do enem de acordo com a variáveis disponibilizadas no banco de dados.
