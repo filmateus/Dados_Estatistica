@@ -1,0 +1,41 @@
+---
+title: "Untitled"
+format: pdf
+---
+
+```{julia}
+using Pkg
+```
+
+```{julia}
+# Lista de pacotes para ciência de dados
+packages = [
+    "DataFrames",
+    "CSV",
+    "Query",
+    "StatsBase",
+    "Distributions",
+    "Plots",
+    "Gadfly",
+    "MLJ",
+    "Flux",
+    "Turing",
+    "JuMP",
+    "DataFramesMeta",
+    "IJulia",
+    "librsvg",
+    "RDatasets",
+    "StatsPlots",
+    "Documenter"
+
+]
+
+# Instala todos os pacotes da lista
+Pkg.add(packages)
+notebook()  
+```
+
+
+```{julia}
+Pkg.add("Documenter")
+```

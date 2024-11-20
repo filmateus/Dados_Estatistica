@@ -1,0 +1,83 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "format:\n",
+        "  html:\n",
+        "    theme: cosmo\n",
+        "  pdf:\n",
+        "    toc: true\n",
+        "    number-sections: true\n",
+        "    colorlinks: true\n",
+        "---"
+      ],
+      "id": "86a6a7c0"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "using Pkg"
+      ],
+      "id": "1c943e1c",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Lista de pacotes para ciência de dados\n",
+        "packages = [\n",
+        "    \"DataFrames\",\n",
+        "    \"CSV\",\n",
+        "    \"Query\",\n",
+        "    \"StatsBase\",\n",
+        "    \"Distributions\",\n",
+        "    \"Plots\",\n",
+        "    \"Gadfly\",\n",
+        "    \"MLJ\",\n",
+        "    \"Flux\",\n",
+        "    \"Turing\",\n",
+        "    \"JuMP\",\n",
+        "    \"DataFramesMeta\",\n",
+        "    \"IJulia\",\n",
+        "    \"librsvg\",\n",
+        "    \"RDatasets\",\n",
+        "    \"StatsPlots\"\n",
+        "\n",
+        "]\n",
+        "\n",
+        "# Instala todos os pacotes da lista\n",
+        "Pkg.add(packages)\n",
+        "notebook()  "
+      ],
+      "id": "37e92647",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Pkg.add(\"\")"
+      ],
+      "id": "bbb4fd62",
+      "execution_count": null,
+      "outputs": []
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "julia-1.11",
+      "language": "julia",
+      "display_name": "Julia 1.11.1",
+      "path": "C:\\Users\\filip\\AppData\\Roaming\\jupyter\\kernels\\julia-1.11"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}

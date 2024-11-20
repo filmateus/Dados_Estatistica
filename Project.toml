@@ -1,0 +1,9 @@
+[deps]
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+IJulia = "7073ff75-c697-5162-941a-fcdaad2a7d2a"
+JSServe = "824d6782-a2ef-11e9-3a09-e5662e0c26f9"
+Markdown = "d6f4376e-aef5-505a-96c1-9c027394607a"
+Observables = "510215fc-4207-5dde-b226-833fc4488ee2"
+RDatasets = "ce6b1742-4840-55fa-b093-852dadbb1d8b"
+StatsPlots = "f3b207a7-027a-5e70-b257-86293d7955fd"
+WGLMakie = "276b4fcb-3e11-5398-bf8b-a0c2d153d008"
